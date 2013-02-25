@@ -18,7 +18,7 @@ require_once(DOKU_PLUGIN . 'syntax.php');
  * All DokuWiki plugins to extend the parser/rendering mechanism
  * need to inherit from this class
  **/
-class syntax_plugin_dilbert extends DokuWiki_Syntax_Plugin {
+class syntax_plugin_dwdilbert extends DokuWiki_Syntax_Plugin {
 
     /**
      * return some info
@@ -69,7 +69,7 @@ class syntax_plugin_dilbert extends DokuWiki_Syntax_Plugin {
      **/
     function connectTo($mode)
     {
-        $this->Lexer->addSpecialPattern('{~dilbert~}', $mode, 'plugin_dilbert');
+        $this->Lexer->addSpecialPattern('{~dilbert~}', $mode, 'plugin_dwdilbert');
     } // function connectTo
 
     /**
@@ -161,6 +161,6 @@ class syntax_plugin_dilbert extends DokuWiki_Syntax_Plugin {
         return hsc($link);
     } // function _scrapeImage
 
-} // class syntax_plugin_dilbert
+} // class syntax_plugin_dwdilbert
 
 //Setup VIM: ex: et ts=4 enc=utf-8 :
