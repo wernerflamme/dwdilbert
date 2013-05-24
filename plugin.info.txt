@@ -1,7 +1,7 @@
 base   dwdilbert
 author Werner Flamme
 email  w.flamme@web.de
-date   2013-02-25
+date   2013-05-24
 name   Dilbert for DokuWiki
 desc   Displays the daily cartoon from dilbert.com
 url    https://github.com/wernerflamme/dwdilbert

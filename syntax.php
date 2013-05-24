@@ -5,7 +5,7 @@
 /**
  * @license    GPL 2 (http://www.gnu.org/licenses/gpl.html)
  * @author     Werner Flamme \<w.flamme@web.de>
- * @date       2009-02-02
+ * @date       2009-02-02, 2013-05-24
  */
  
 if(!defined('DOKU_INC'))
@@ -21,25 +21,10 @@ require_once(DOKU_PLUGIN . 'syntax.php');
 class syntax_plugin_dwdilbert extends DokuWiki_Syntax_Plugin {
 
     /**
-     * return some info
-     * @return array (hash) with some info about the plugin
-     **/
-    function getInfo()
-    {
-        return array(
-            'author' => 'Werner Flamme',
-            'email'  => 'w.flamme@web.de',
-            'date'   => '2009-02-02',
-            'name'   => 'Dilbert Daily Cartoon Plugin',
-            'desc'   => 'Shows the daily cartoon from dilbert.com ' .
-                        'as shown on http://feedproxy.google.com/~r/DilbertDailyStrip/<...>',
-            'url'    => 'http://www.wernerflamme.name/doku.php?id=comp:dilbert'
-        );
-    } // function getInfo
-
-    /**
      * What kind of syntax are we?
      * @return string containing the syntax type
+     *
+     * this function must be implemented in a syntax plugin
      **/
     function getType()
     {
@@ -49,6 +34,8 @@ class syntax_plugin_dwdilbert extends DokuWiki_Syntax_Plugin {
     /**
      * What kind of plugin are we?
      * @return string containing the kind of the plugin
+     *
+     * this function can be overridden in a syntax plugin
      **/
     function getPType()
     {
@@ -58,6 +45,8 @@ class syntax_plugin_dwdilbert extends DokuWiki_Syntax_Plugin {
     /**
      * Where to sort in?
      * @return integer number giving the sort sequence number
+     *
+     * this function must be implemented in a syntax plugin
      **/
     function getSort()
     {
@@ -66,6 +55,8 @@ class syntax_plugin_dwdilbert extends DokuWiki_Syntax_Plugin {
 
     /**
      * Connect pattern to lexer
+     *
+     * this function must be implemented in a syntax plugin
      **/
     function connectTo($mode)
     {
@@ -75,6 +66,8 @@ class syntax_plugin_dwdilbert extends DokuWiki_Syntax_Plugin {
     /**
      * Handle the match
      * @return an empty array ;-)
+     *
+     * this function must be implemented in a syntax plugin
      **/
     function handle($match, $state, $pos) 
     {
@@ -84,10 +77,12 @@ class syntax_plugin_dwdilbert extends DokuWiki_Syntax_Plugin {
     /**
      * Create output
      * @param $mode       current mode of DokuWiki 
-     *                    (see http://wiki.splitbrain.org/plugin:tutorial)
+     *                    (see https://www.dokuwiki.org/devel:syntax_plugins)
      * @param $renderer   DokuWiki's rendering object
      * @param $data       (not looked at)
      * @return true, if rendering happens, false in all other cases
+     *
+     * this function must be implemented in a syntax plugin
      **/
     function render($mode, &$renderer, $data)
     {
@@ -113,15 +108,15 @@ class syntax_plugin_dwdilbert extends DokuWiki_Syntax_Plugin {
             foreach ($feed->get_items() as $item) {
                 // if the item has been published during the last 24 hours...
                 if ($item->get_date('U') > $yesterday) {
-                    $feedDescription = hsc($item->get_description());
-                    $image           = $this->_returnImage($feedDescription);
-                    $imageurl        = $this->_scrapeImage($image);
-                    $src             = $imageurl;
-                    $title           = 'Dilbert Daily Cartoon';
-                    $align           = null;
-                    $width           = null;
-                    $height          = null;
-                    $cache           = false;
+                    $relevant = hsc($item->get_description());
+                    $image    = $this->_returnImage($relevant);
+                    $imageurl = $this->_scrapeImage($image);
+                    $src      = $imageurl;
+                    $title    = 'Dilbert Daily Cartoon';
+                    $align    = null;
+                    $width    = null;
+                    $height   = null;
+                    $cache    = false;
                     $renderer->externalmedia($src, $title, $align, $width, $height, $cache);
                 } // if ($item->get_date('U') > $yesterday)
             } // foreach ($feed->get_items() as $item)
@@ -129,7 +124,7 @@ class syntax_plugin_dwdilbert extends DokuWiki_Syntax_Plugin {
         } // if ($mode == 'xhtml')
         return false;
     } // function render
-    
+
     /**
      * taken from esteban on http://simplepie.org/support/viewtopic.php?id=643
      * Last edited by esteban (23 April 2007 03:06:30)
