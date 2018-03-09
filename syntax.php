@@ -69,7 +69,7 @@ class syntax_plugin_dwdilbert extends DokuWiki_Syntax_Plugin {
      *
      * this function must be implemented in a syntax plugin
      **/
-    function handle($match, $state, $pos) 
+    function handle($match, $state, $pos, Doku_Handler $handler) 
     {
         return array();
     } // function handle
@@ -84,7 +84,7 @@ class syntax_plugin_dwdilbert extends DokuWiki_Syntax_Plugin {
      *
      * this function must be implemented in a syntax plugin
      **/
-    function render($mode, &$renderer, $data)
+    function render($mode, Doku_Renderer $renderer, $data)
     {
         if ($mode == 'xhtml') {
             // we need the SimplePie library
